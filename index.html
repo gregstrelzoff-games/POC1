@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dominion Prototype</title>
+  <style>
+    html, body { height: 100%; margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    .wrap { display: grid; grid-template-columns: 1fr 360px; gap: 16px; height: 100%; }
+    .left { display: grid; place-items: center; background: #0f172a; }
+    canvas { width: 100%; height: 100%; max-width: 100%; max-height: 100%; display: block; }
+    .right { padding: 16px; overflow: auto; }
+    h1 { margin: 0 0 8px; font-size: 20px; }
+    .card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 12px; margin-bottom: 12px; }
+    button { padding: 8px 12px; border: 1px solid #111827; background: #111827; color: white; border-radius: 8px; cursor: pointer; }
+    button:disabled { opacity: .6; cursor: not-allowed; }
+    input[type=email] { width: 100%; padding: 8px; border: 1px solid #d1d5db; border-radius: 8px; }
+    ol { padding-left: 20px; }
+    .muted { color: #6b7280; font-size: 12px; }
+    a { color: #2563eb; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="left">
+      <canvas id="gameCanvas" width="1280" height="720"></canvas>
+    </div>
+    <div class="right">
+      <h1>Dominion Prototype</h1>
+      <div class="card">
+        <div><strong>User ID:</strong> <span id="userId"></span></div>
+        <div style="margin-top:8px; display:flex; gap:8px; flex-wrap: wrap;">
+          <button id="btnRandomScore">Submit random score</button>
+          <button id="btnRefresh">Refresh leaderboard</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <strong>Leaderboard (Top 20)</strong>
+        <ol id="leaderboard"></ol>
+        <div class="muted">Backed by Vercel KV via <code>/api/leaderboard</code>.</div>
+      </div>
+
+      <div class="card">
+        <strong>Pro Check</strong>
+        <input id="email" type="email" placeholder="you@example.com" />
+        <div style="margin-top:8px; display:flex; gap:8px;">
+          <button id="btnCheckPro">Check</button>
+          <span id="proResult" class="muted"></span>
+        </div>
+        <div class="muted" style="margin-top:8px;">Reads <code>pro:&lt;email&gt;</code> from KV using <code>/api/is-pro</code>.</div>
+      </div>
+
+      <div class="card">
+        <strong>Server sanity</strong>
+        <div><a href="/api/hello" target="_blank">/api/hello</a></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/main.js" type="module"></script>
+</body>
+</html>
